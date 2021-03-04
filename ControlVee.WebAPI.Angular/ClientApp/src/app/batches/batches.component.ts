@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { pipe, timer } from 'rxjs';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { Batch } from '../batch';
@@ -12,7 +12,10 @@ import { BatchService } from '../services/get-service.service';
 })
 
 @Injectable()
-export class BatchesComponent implements OnInit {
+export class BatchesComponent implements OnInit, AfterViewInit {
+  elapsed$: BehaviorSubject<string> = new BehaviorSubject<string>(null);
+  progress$: BehaviorSubject<number> = new BehaviorSubject<number>(0);
+
   batches$: BehaviorSubject<Batch[]> = new BehaviorSubject<Batch[]>([]);
   typeA: Batch[];
   typeA$: BehaviorSubject<Batch[]>;
@@ -41,25 +44,33 @@ export class BatchesComponent implements OnInit {
     this.typeF$ = new BehaviorSubject<Batch[]>([]);
     this.typeG$ = new BehaviorSubject<Batch[]>([]);
     this.typeH$ = new BehaviorSubject<Batch[]>([]);
-
-
   }
 
   ngOnInit(): void {
+    var batches = this.service.getBatches();
+    this.batches$.next(batches);
+    this.sortByBatchType(true);
+    }
 
-    var timeThis = timer(1, 5000);
+  ngAfterViewInit(): void {
+    timer(500, 500).subscribe(x => {
 
-    timeThis.subscribe((elapsed) => {
+      this.progress$.next(x);
+
+      this.sortByBatchType(true);
+    });
+
+    timer(1000, 60000).subscribe(x => {
 
       var batches = this.service.getBatches();
 
       this.batches$.next(batches);
-
-      this.sortByBatchType();
+      this.sortByBatchType(false);
     });
   }
 
-  sortByBatchType(): void {
+  // TODO: Split responsibilites.
+  sortByBatchType(timeElapsedInfo): void {
     console.log("in sort function");
 
     this.typeA = [] as Batch[];
@@ -71,12 +82,30 @@ export class BatchesComponent implements OnInit {
     this.typeG = [] as Batch[];
     this.typeH = [] as Batch[];
 
-
     this.batches$.getValue().forEach(pipe(
 
       (b: Batch) => {
-        console.log(b["nameOf"]);
+
+        if (timeElapsedInfo) {
+          console.log('getting time elap');
+          // Calculate elapsed time.
+          var startTime = Date.parse(b["started"]);
+          var elapsedMiliseconds = new Date().valueOf() - startTime.valueOf();
+          var elapsedSeconds = elapsedMiliseconds / 1000;
+          b["elapsed"] = (Math.round(elapsedSeconds)).toLocaleString();
+
+         
+
+          return;
+        }
+
+        var dateFormatted = new Date(b["started"]).toLocaleString();
+        console.log(dateFormatted);
+        b["started"] = dateFormatted.valueOf();
+
         switch (b["nameOf"]) {
+
+
           case "Classic Glazed": {
 
             this.typeA.push(b);

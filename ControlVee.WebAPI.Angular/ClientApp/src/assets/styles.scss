@@ -6,7 +6,63 @@ https://gist.github.com/pimatco/d5b1891feb90b60ca4681011b6513873
 
 @import '../../node_modules/@angular/material/prebuilt-themes/indigo-pink.css';
 
-.mat-form-field-flex {
-    margin: 40px;
-    width: 300px;
+body {
+    background-color: #ffffff;
 }
+
+main {
+   
+}
+
+.mat-form-field-should-float {
+  background-color: #c4c4c4;
+  flex-wrap: wrap;
+  flex-direction: row;
+  display: flex;
+  padding-block: 10px;
+  justify-content:center;
+}
+
+.mat-card {
+  margin: 10px;
+  width: 300px;
+  font-size:medium;
+}
+
+.mat-card-header, .mat-card-content, .mat-caption {
+  padding: 15px;
+}
+
+mat-progress-bar {
+  height: 15px;
+}
+
+#typeAheader {
+  background-color: #00ff90;
+}
+
+#typeBheader {
+  background-color: #00ff21;
+}
+
+#typeCheader {
+  background-color: #b6ff00;
+}
+
+#typeDheader {
+  background-color: #ff6a00;
+}
+
+#typeEheader {
+  background-color: #ffffff;
+}
+
+#typeFheader {
+  background-color: #0094ff;
+}
+
+#typeGheader {
+  background-color: #b200ff;
+}
+
+
