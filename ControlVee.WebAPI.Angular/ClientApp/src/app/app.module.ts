@@ -1,10 +1,10 @@
 import { BrowserModule } from '@angular/platform-browser';
+import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-
+import { HttpClientModule } from '@angular/common/http';
 import { AppComponent } from './app.component';
 import { MaterialsModule } from './materials/materials.module';
 import { BatchesComponent } from './batches/batches.component';
-
 
 @NgModule({
   declarations: [
@@ -13,7 +13,9 @@ import { BatchesComponent } from './batches/batches.component';
   ],
   imports: [
     BrowserModule,
-    MaterialsModule
+    MaterialsModule,
+    HttpClientModule,
+    CommonModule
   ],
   exports: [
     BrowserModule,

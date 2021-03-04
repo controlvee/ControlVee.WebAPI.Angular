@@ -74,9 +74,9 @@ namespace ControlVee.WebAPI.Angular
             AssuredConnected();
             using (System.Data.IDbCommand command = connection.CreateCommand())
             {
-                string text = storedProc_GetallBatches;
+                string text = $"select * from dbo.BatchesInProgress";
                 command.CommandText = text;
-                command.CommandType = System.Data.CommandType.StoredProcedure;
+                command.CommandType = CommandType.Text;
 
                 using (System.Data.IDataReader reader = command.ExecuteReader())
                 {

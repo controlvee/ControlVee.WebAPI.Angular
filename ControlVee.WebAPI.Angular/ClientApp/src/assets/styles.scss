@@ -4,4 +4,9 @@ https://github.com/angular/components/tree/master/guides
 https://gist.github.com/pimatco/d5b1891feb90b60ca4681011b6513873
 */
 
-@import '/ClientApp/node_modules/@angular/material/prebuilt-themes/pink-bluegrey.css';
+@import '../../node_modules/@angular/material/prebuilt-themes/indigo-pink.css';
+
+.mat-form-field-flex {
+    margin: 40px;
+    width: 300px;
+}

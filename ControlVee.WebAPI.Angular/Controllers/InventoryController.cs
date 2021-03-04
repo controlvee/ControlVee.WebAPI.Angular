@@ -10,7 +10,7 @@ namespace ControlVee.WebAPI.Angular
     [Route("[controller]")]
     public class InventoryController : ControllerBase
     {
-        private readonly string cstring = @"Data Source=(localdb)\mssqllocaldb;Database=DutShop;Integrated Security=True";
+        private readonly string cstring = @"Data Source=(localdb)\MSSQLLocalDB;Database=DutShop;Integrated Security=True";
         private DataAccess context;
         List<BatchModel> batches;
 
