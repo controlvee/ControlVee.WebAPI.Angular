@@ -1,25 +1,35 @@
-import { BrowserModule } from '@angular/platform-browser';
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { BrowserModule } from '@angular/platform-browser';
+
 import { HttpClientModule } from '@angular/common/http';
 import { AppComponent } from './app.component';
 import { MaterialsModule } from './materials/materials.module';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BatchesComponent } from './batches/batches.component';
+import { GraphComponent } from './graph/graph.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    BatchesComponent
+    BatchesComponent,
+    GraphComponent
   ],
   imports: [
     BrowserModule,
     MaterialsModule,
     HttpClientModule,
-    CommonModule
+    CommonModule,
+    BrowserAnimationsModule,
+    FormsModule,
+    ReactiveFormsModule
   ],
   exports: [
     BrowserModule,
-    MaterialsModule
+    MaterialsModule,
+    CommonModule,
+    BrowserAnimationsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

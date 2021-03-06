@@ -8,7 +8,7 @@ import { BatchService } from '../services/get-service.service';
 @Component({
   selector: 'app-batches',
   templateUrl: './batches.component.html',
-  styleUrls: ['./batches.component.scss']
+  styleUrls: []
 })
 
 @Injectable()
