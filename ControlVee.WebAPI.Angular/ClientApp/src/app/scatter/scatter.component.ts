@@ -37,6 +37,7 @@ export class ScatterComponent implements OnInit {
       var height = parseInt(d3.select("figure.mat-figure").style("height").replace("px", ""));
 
       // Async.
+      // Refactor.
       this.service.getBatches().subscribe(pipe((b: Batch[]) => { this.batches = b }));
       var dataset = new Array();
 
@@ -78,12 +79,13 @@ export class ScatterComponent implements OnInit {
 
   private drawPlot(dataset: Array<number>, width, height): void {
 
-    var padding = 60;
+    var padding = 40;
 
     var xScale = d3.scaleLinear()
       .domain([0, d3.max(dataset, function (d) { return d[0]; })])
       .range([padding, width - padding * 4]);
 
+    // Y-scale inverts on it's own?
     var yScale = d3.scaleLinear()
       .domain([d3.min(dataset, function (d) { return d[1]; }), d3.max(dataset, function (d) { return d[1]; })])
       .range([height - padding, padding]);
