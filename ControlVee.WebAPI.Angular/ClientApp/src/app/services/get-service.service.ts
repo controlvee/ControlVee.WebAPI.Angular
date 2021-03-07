@@ -2,22 +2,21 @@ import { Injectable } from '@angular/core';
 import { NgModule } from '@angular/core';
 import { HttpClient, HttpResponse } from '@angular/common/http';
 import { Batch } from '../batch';
+import { Observable } from 'rxjs';
 
 @Injectable()
 export class BatchService {
-
+  responseCache = new Map();
   inventoryUrl = "http://localhost:55679/Inventory";
   getMethod = "/getBatches";
-  batches = [] as Batch[];
+  batches: Batch[] = new Array();
 
   constructor(private http: HttpClient) { }
 
-  getBatches(): Batch[]{
-    
-    var response = this.http.get<Batch[]>(this.inventoryUrl + this.getMethod).subscribe(data => { this.batches = data as Batch[] });
+  getBatches(): Observable<any>{
 
-    console.log(response);
-    return this.batches;
+    return this.http.get<Batch[]>(this.inventoryUrl + this.getMethod).pipe(data => { return data });
   }
+
 }
 

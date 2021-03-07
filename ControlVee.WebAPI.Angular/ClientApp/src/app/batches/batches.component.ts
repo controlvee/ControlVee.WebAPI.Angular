@@ -47,13 +47,13 @@ export class BatchesComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit(): void {
-    var batches = this.service.getBatches();
-    this.batches$.next(batches);
+
+    this.service.getBatches().subscribe(pipe((b: Batch[]) => { this.batches$.next(b) }));
     this.sortByBatchType(true);
     }
 
   ngAfterViewInit(): void {
-    timer(500, 500).subscribe(x => {
+    timer(0, 5000).subscribe(x => {
 
       this.progress$.next(x);
 
@@ -64,14 +64,13 @@ export class BatchesComponent implements OnInit, AfterViewInit {
 
       var batches = this.service.getBatches();
 
-      this.batches$.next(batches);
+      this.service.getBatches().subscribe(pipe((b: Batch[]) => { this.batches$.next(b) }));
       this.sortByBatchType(false);
     });
   }
 
   // TODO: Split responsibilites.
   sortByBatchType(timeElapsedInfo): void {
-    console.log("in sort function");
 
     this.typeA = [] as Batch[];
     this.typeB = [] as Batch[];
@@ -87,7 +86,6 @@ export class BatchesComponent implements OnInit, AfterViewInit {
       (b: Batch) => {
 
         if (timeElapsedInfo) {
-          console.log('getting time elap');
           // Calculate elapsed time.
           var startTime = Date.parse(b["started"]);
           var elapsedMiliseconds = new Date().valueOf() - startTime.valueOf();
@@ -100,7 +98,6 @@ export class BatchesComponent implements OnInit, AfterViewInit {
         }
 
         var dateFormatted = new Date(b["started"]).toLocaleString();
-        console.log(dateFormatted);
         b["started"] = dateFormatted.valueOf();
 
         switch (b["nameOf"]) {
@@ -110,53 +107,45 @@ export class BatchesComponent implements OnInit, AfterViewInit {
 
             this.typeA.push(b);
 
-            console.log(b["id"] + "_A")
             break;
           }
           case "Strawberry PopTart": {
 
             this.typeB.push(b);
 
-            console.log(b["id"] + "_B")
             break;
           }
           case "Capn Crunched": {
 
             this.typeC.push(b);
 
-            console.log(b["id"] + "_C")
             break;
           }
           case "Shred Tha Gnar": {
 
             this.typeD.push(b);
 
-            console.log(b["id"] + "_D")
             break;
           }
           case "Chocolatte": {
 
             this.typeE.push(b);
 
-            console.log(b["id"] + "_D")
             break;
           }
           case "M&M 'manem": {
 
             this.typeF.push(b);
 
-            console.log(b["id"] + "_D")
             break;
           }
           case "Sugar High": {
 
             this.typeG.push(b);
 
-            console.log(b["id"] + "_D")
             break;
           }
           default: {
-            console.log(b["id"] + "_UNK")
             break;
           }
         }

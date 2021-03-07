@@ -3,8 +3,8 @@
 </head>
 <body>
   <ul>
-    <li>
-      <mat-card class="cust-mat-card" *ngFor="let batcha of typeA$ | async">
+    <li  *ngFor="let batcha of typeA$ | async">
+      <mat-card class="cust-mat-card">
         <mat-card-header>
           <mat-icon class="custom-image"></mat-icon>
           <mat-card-title>

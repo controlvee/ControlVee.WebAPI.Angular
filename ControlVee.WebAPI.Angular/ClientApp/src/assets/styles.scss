@@ -9,25 +9,55 @@ https://gist.github.com/pimatco/d5b1891feb90b60ca4681011b6513873
 
 body {
   margin: 10px;
-  height: 1000px;
+  height: auto;
+  width: 100%;
 }
 
+.axis path,
+.axis line {
+  fill: none;
+  stroke: rgb(128 128 128);
+  shape-rendering: crispEdges;
+}
 
+.axis text {
+  font-family: sans-serif;
+  font-size: 11px;
+  fill: #ffffff;
+  opacity: .5;
+}
 
+circle {
+  fill: transparent;
+  stroke: rgb(67 176 204);
+  stroke-width: 2px;
+}
+
+#scatterPlot {
+  background-color: rgb(37 37 38);
+  padding: 20px;
+
+}
+
+app-batches {
+  padding: 10px;
+}
+
+app-scatter {
+}
 
 ul {
-  width: auto;
+  height: 200px;
   text-decoration: none;
-  padding: 10px;
-  align-content: center;
+  flex-direction: column;
+  overflow: scroll;
+  float: left;
 }
 
 li {
-  width: 100%;
-  list-style-type: none;
+  width: 50%;
   display: inline-flex;
-  margin: auto;
-  overflow-x: scroll;
+  list-style-type: none;
   padding-bottom: 15px;
 }
 
