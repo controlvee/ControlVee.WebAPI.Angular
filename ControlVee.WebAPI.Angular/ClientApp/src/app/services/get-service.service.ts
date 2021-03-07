@@ -6,10 +6,8 @@ import { Observable } from 'rxjs';
 
 @Injectable()
 export class BatchService {
-  responseCache = new Map();
   inventoryUrl = "http://localhost:55679/Inventory";
   getMethod = "/getBatches";
-  batches: Batch[] = new Array();
 
   constructor(private http: HttpClient) { }
 

@@ -27,7 +27,7 @@ export class ScatterComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    var timed = timer(0, 2000);
+    var timed = timer(0, 5000);
 
     timed.subscribe(() => {
 
@@ -46,8 +46,8 @@ export class ScatterComponent implements OnInit {
 
         var startTime = Date.parse(this.batches[i]["started"]);
         var elapsedMiliseconds = new Date().valueOf() - startTime.valueOf();
-        var elapsedSeconds = (elapsedMiliseconds / 2000).toFixed(0);
-        this.batches[i]["elapsed"] = elapsedSeconds;
+        var elapsedTime = (elapsedMiliseconds / 1000).toFixed(2);
+        this.batches[i]["elapsed"] = elapsedTime;
 
 
         var newNumber2 = this.batches[i]["elapsed"];
