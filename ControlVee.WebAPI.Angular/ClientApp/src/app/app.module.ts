@@ -8,13 +8,13 @@ import { AppComponent } from './app.component';
 import { MaterialsModule } from './materials/materials.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BatchesComponent } from './batches/batches.component';
-import { GraphComponent } from './graph/graph.component';
+import { ScatterComponent } from './scatter/scatter.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     BatchesComponent,
-    GraphComponent
+    ScatterComponent
   ],
   imports: [
     BrowserModule,
