@@ -9,8 +9,10 @@ https://gist.github.com/pimatco/d5b1891feb90b60ca4681011b6513873
 
 body {
   margin: 10px;
-  height: auto;
-  width: 100%;
+}
+
+a {
+    color: #cfcfcf;
 }
 
 .axis path,
@@ -28,22 +30,18 @@ body {
 }
 
 circle {
-  fill: red;
+  fill: transparent;
   stroke: rgb(67 176 204);
-  stroke-width: 2px;
+  stroke-width: 1.5px;
 }
 
 #scatterPlot {
   background-color: rgb(37 37 38);
   padding: 20px;
-
 }
 
 app-batches {
   padding: 10px;
-}
-
-app-scatter {
 }
 
 ul {

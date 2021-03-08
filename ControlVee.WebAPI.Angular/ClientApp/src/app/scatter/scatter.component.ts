@@ -38,8 +38,8 @@ export class ScatterComponent implements OnInit {
 
 
       var margin = 50;
-      var width = 1000;
-      var height = 800;
+      var width = 1400;
+      var height = 1000;
       var dataSetLength;
 
       d3.select("svg").remove();
@@ -94,16 +94,19 @@ export class ScatterComponent implements OnInit {
 
   private drawPlot(dataset: Array<number>, width, height): void {
 
-    var padding = 1;
+    var padding = 40;
 
     var xScale = d3.scaleLinear()
       .domain([0, d3.max(dataset, function (d) { return d[0]; })])
-      .range([padding, width - padding * 4]);
+      .range([padding, width - padding]);
 
-    // Y-scale inverts on it's own?
     var yScale = d3.scaleLinear()
-      .domain([0, d3.max(dataset, function (d) { return d[1] * 1.5; })])
+      .domain([0, d3.max(dataset, function (d) { return d[1]; })])
       .range([height - padding, padding]);
+
+    //var textYScale = d3.scaleLinear()
+    //  .domain([0, d3.max(dataset, function (d) { return d[1] * 1.5; })])
+    //  .range([height - padding, padding]);
 
 
     this.svg.selectAll("circle")
@@ -121,7 +124,7 @@ export class ScatterComponent implements OnInit {
         return yScale(d[1]);
       })
       .attr("r", function (d) {
-        return d[0];
+        return d[0] * 1.25;
       });
 
     this.svg.selectAll("text")
@@ -131,7 +134,6 @@ export class ScatterComponent implements OnInit {
       .text(function (d) {
         return d[0] + "," + d[1] + " " + d[2];
       })
-      .attr("class", "textPlots")
       .style("font-family", "sans-serif")
       .style("font-size", "11px")
       .style("fill", "white")
@@ -142,11 +144,8 @@ export class ScatterComponent implements OnInit {
         return xScale(d[0]);
       })
       .attr("y", function (d) {
-        return yScale(d[1]);
+        return yScale(d[1] - .25);
       });
-
-
-
 
     // X-Axis.
     var xAxis = d3.axisBottom(xScale)
@@ -162,7 +161,7 @@ export class ScatterComponent implements OnInit {
 
     // Y-Axis.
     var yAxis = d3.axisLeft(yScale)
-      .ticks(4);
+      .ticks(5);
 
     // Create.
     this.svg.append("g")
