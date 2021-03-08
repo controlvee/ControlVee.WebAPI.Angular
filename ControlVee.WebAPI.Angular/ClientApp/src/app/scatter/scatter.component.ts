@@ -38,7 +38,7 @@ export class ScatterComponent implements OnInit {
 
 
       var margin = 50;
-      var width = 1400;
+      var width = document.getElementById("scatterPlot").clientWidth - (margin * 2);
       var height = 1000;
       var dataSetLength;
 
@@ -94,7 +94,7 @@ export class ScatterComponent implements OnInit {
 
   private drawPlot(dataset: Array<number>, width, height): void {
 
-    var padding = 40;
+    var padding = 80;
 
     var xScale = d3.scaleLinear()
       .domain([0, d3.max(dataset, function (d) { return d[0]; })])
