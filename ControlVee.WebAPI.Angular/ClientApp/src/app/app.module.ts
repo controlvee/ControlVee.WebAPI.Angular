@@ -34,4 +34,6 @@ import { ScatterComponent } from './scatter/scatter.component';
   providers: [],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+
+}

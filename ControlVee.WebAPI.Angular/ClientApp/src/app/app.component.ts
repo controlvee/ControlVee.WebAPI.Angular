@@ -8,5 +8,7 @@ import { BatchService } from './services/get-service.service';
   providers: [BatchService]
 })
 export class AppComponent {
-  title = 'ClientApp';
+  AppComponent() {
+    
+  }
 }
