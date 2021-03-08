@@ -8,8 +8,10 @@ namespace ControlVee.WebAPI.Angular.Models
     {
         public string ID { get; set; }
         public string NameOf { get; set; }
-        public DateTime Started { get; set; }
-        public string Elapsed { get; set; }
         public int Total { get; set; }
+        public DateTime Completion { get; set; }
+        public DateTime Expire { get; set; }
+        public int TotalSold { get; set; }
+        public int HasExpired { get; set; }
     }
 }

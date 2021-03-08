@@ -55,8 +55,26 @@ namespace ControlVee.WebAPI.Angular
         }
 
         [HttpGet]
+        [Route("simulateSale")]
+        public int SimulateSale()
+        {
+            int success = 0;
+            using (var connection = new SqlConnection())
+            {
+                connection.ConnectionString = cstring;
+
+                context = new DataAccess(connection);
+
+                if (context.SimulateSaleFromDb())
+                    success = 1;
+            };
+
+            return success;
+        }
+
+        [HttpGet]
         [Route("getTotalSold")]
-        public List<TotalSoldModel> GetTotalSold()
+        public IQueryable<TotalSoldModel> GetTotalSold()
         {
             totalSold = new List<TotalSoldModel>();
             using (var connection = new SqlConnection())
@@ -69,7 +87,7 @@ namespace ControlVee.WebAPI.Angular
                     
             };
 
-            return totalSold;
+            return totalSold.AsQueryable();
         }
     }
 }

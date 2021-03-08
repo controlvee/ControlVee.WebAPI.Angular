@@ -10,7 +10,7 @@ namespace ControlVee.WebAPI.Angular
     {
         private System.Data.IDbConnection connection;
         private readonly string storedProc_CreateBatchRecord = "SimulateBatches";
-        private readonly string storedProc_GetallBatches = "GetAllBatches";
+        private readonly string storedProc_SimulateSale = "SimulateSale";
         private readonly string storedProc_MoveToInventory = "MoveToInventory";
         private readonly string storedProc_GetAllOnHandInventory = "GetAllOnHandInventory";
         private readonly string storedProc_GetInventoryTotalsByType = "GetTotalSold";
@@ -22,7 +22,7 @@ namespace ControlVee.WebAPI.Angular
 
         public DataAccess()
         {
-            batches = new List<BatchModel>();
+            
         }
 
         public DataAccess(System.Data.IDbConnection connection)
@@ -60,7 +60,7 @@ namespace ControlVee.WebAPI.Angular
             AssuredConnected();
             using (System.Data.IDbCommand command = connection.CreateCommand())
             {
-                string text = $"select * from dbo.BatchesInProgress";
+                string text = $"select * from dbo.OnHandInventory";
                 command.CommandText = text;
                 command.CommandType = CommandType.Text;
 
@@ -74,6 +74,28 @@ namespace ControlVee.WebAPI.Angular
             }
 
             return batches;
+        }
+
+        internal bool SimulateSaleFromDb()
+        {
+            bool success = false;
+
+            AssuredConnected();
+            using (System.Data.IDbCommand command = connection.CreateCommand())
+            {
+                command.CommandText = storedProc_SimulateSale;
+                command.CommandType = System.Data.CommandType.StoredProcedure;
+
+                using (System.Data.IDataReader reader = command.ExecuteReader())
+                {
+                    if (reader.RecordsAffected > 0)
+                    {
+                        success = true;
+                    }
+                }
+            }
+
+            return success;
         }
 
         internal List<TotalSoldModel> GetTotalSoldFromDb()
@@ -108,9 +130,10 @@ namespace ControlVee.WebAPI.Angular
             batch.ID = (string)reader["ID"];
             batch.NameOf = (string)reader["nameOf"];
             batch.Total = (int)reader["total"];
-            batch.Started = (DateTime)reader["started"];
-            // TODO do this in component.
-            batch.Elapsed = Math.Round(Math.Abs((batch.Started - DateTime.Now).TotalMinutes), 1).ToString();
+            batch.Completion = (DateTime)reader["completion"];
+            batch.Expire = (DateTime)reader["expire"];
+            batch.TotalSold = (int)reader["totalSold"];
+            batch.HasExpired = (int)reader["hasExpired"];
 
             return batch;
         }
@@ -120,8 +143,8 @@ namespace ControlVee.WebAPI.Angular
 
             batchTotalSold = new TotalSoldModel();
             batchTotalSold.NameOf = (string)reader["nameOf"];
-            batchTotalSold.Total = (int)reader["totalSold"];
-
+            batchTotalSold.Total = (int)reader["total"];
+            batchTotalSold.TotalMoneyAmount = (decimal)reader["totalUSD"];
             return batchTotalSold;
         }
     
