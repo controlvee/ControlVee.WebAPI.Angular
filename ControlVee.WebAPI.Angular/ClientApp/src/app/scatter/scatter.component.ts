@@ -31,15 +31,15 @@ export class ScatterComponent implements OnInit {
 
     
 
-    var updateFrequency = 10000;
+    var updateFrequency = 1000;
     var timed = timer(0, updateFrequency);
 
     timed.subscribe((x) => {
 
 
-      var margin = 200;
-      var width = 500;
-      var height = 500;
+      var margin = 50;
+      var width = 1000;
+      var height = 800;
       var dataSetLength;
 
       d3.select("svg").remove();
@@ -61,17 +61,18 @@ export class ScatterComponent implements OnInit {
 
         var newNumber1 = this.batches$.value[i]["total"];
         var newNumber2 = this.batches$.value[i]["totalSold"];
+        var nameOf = this.batches$.value[i]["nameOf"];
         console.log(newNumber1 + " " + "total");
         console.log(newNumber2 + " " + "totalSold");
 
-        dataset.push([newNumber1, newNumber2]);
+        dataset.push([newNumber1, newNumber2, nameOf]);
 
         
         
-        this.drawPlot(dataset, width, height);
+        
       }
      
-      
+      this.drawPlot(dataset, width, height);
 
     });
    
@@ -93,7 +94,7 @@ export class ScatterComponent implements OnInit {
 
   private drawPlot(dataset: Array<number>, width, height): void {
 
-    var padding = 60;
+    var padding = 1;
 
     var xScale = d3.scaleLinear()
       .domain([0, d3.max(dataset, function (d) { return d[0]; })])
@@ -128,7 +129,7 @@ export class ScatterComponent implements OnInit {
       .enter()
       .append("text")
       .text(function (d) {
-        return "[" + d[0] + "," + d[1] + "]";
+        return d[0] + "," + d[1] + " " + d[2];
       })
       .attr("class", "textPlots")
       .style("font-family", "sans-serif")
