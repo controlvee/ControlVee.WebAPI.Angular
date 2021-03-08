@@ -13,6 +13,7 @@ namespace ControlVee.WebAPI.Angular
         private readonly string cstring = @"Data Source=(localdb)\MSSQLLocalDB;Database=DutShop;Integrated Security=True";
         private DataAccess context;
         List<BatchModel> batches;
+        List<TotalSoldModel> totalSold;
 
         public InventoryController()
         {
@@ -33,6 +34,42 @@ namespace ControlVee.WebAPI.Angular
             };
 
             return batches.AsQueryable();
+        }
+
+        [HttpGet]
+        [Route("createBatch")]
+        public int CreateBatch()
+        {
+            int success = 0;
+            using (var connection = new SqlConnection())
+            {
+                connection.ConnectionString = cstring;
+
+                context = new DataAccess(connection);
+
+                if (context.CreateBatchRecordFromDb())
+                    success = 1;
+            };
+
+            return success;
+        }
+
+        [HttpGet]
+        [Route("getTotalSold")]
+        public List<TotalSoldModel> GetTotalSold()
+        {
+            totalSold = new List<TotalSoldModel>();
+            using (var connection = new SqlConnection())
+            {
+                connection.ConnectionString = cstring;
+
+                context = new DataAccess(connection);
+
+                totalSold = context.GetTotalSoldFromDb();
+                    
+            };
+
+            return totalSold;
         }
     }
 }

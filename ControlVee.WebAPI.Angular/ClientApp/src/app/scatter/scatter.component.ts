@@ -79,7 +79,7 @@ export class ScatterComponent implements OnInit {
 
   private drawPlot(dataset: Array<number>, width, height): void {
 
-    var padding = 40;
+    var padding = 60;
 
     var xScale = d3.scaleLinear()
       .domain([0, d3.max(dataset, function (d) { return d[0]; })])
@@ -87,7 +87,7 @@ export class ScatterComponent implements OnInit {
 
     // Y-scale inverts on it's own?
     var yScale = d3.scaleLinear()
-      .domain([d3.min(dataset, function (d) { return d[1]; }), d3.max(dataset, function (d) { return d[1]; })])
+      .domain([0, d3.max(dataset, function (d) { return d[1] * 1.5; })])
       .range([height - padding, padding]);
 
 
@@ -95,9 +95,9 @@ export class ScatterComponent implements OnInit {
       .data(dataset)
       .enter()
       .append("circle")
-      .on('mouseover', function () {
+      .on('mouseover', function (event) {
 
-        console.log(this.childNodes);
+        console.log(event);
       })
       .attr("cx", function (d) {
         return xScale(d[0]);
@@ -106,7 +106,7 @@ export class ScatterComponent implements OnInit {
         return yScale(d[1]);
       })
       .attr("r", function (d) {
-        return d[0] * 2;
+        return d[0];
       });
 
     this.svg.selectAll("text")

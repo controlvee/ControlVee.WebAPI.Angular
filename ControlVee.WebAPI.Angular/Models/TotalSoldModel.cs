@@ -5,10 +5,9 @@ using System.Threading.Tasks;
 
 namespace ControlVee.WebAPI.Angular.Models
 {
-    public class CreateBatchModel
+    public class TotalSoldModel
     {
-        public int ID;
-        public string nameOf;
-        public int total;
+        public string NameOf;
+        public int Total;
     }
 }
